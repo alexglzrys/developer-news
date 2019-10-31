@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>App Social Votos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
+  <link rel="stylesheet" href="./public/styles.css">
+</head>
+<body>
+  <div id="app">
+    <h2 class="title has-text-centered dividing-header">{{ title }}</h2>
+    <p class="has-text-centered">{{ description }}</p>
+    <!-- Enlace de Datos (Data Binding) - se hace a través de {{ }} y la directiva v-bind || : para el caso de atributos HTML -->
+    <div class="section">
+      <!-- :key - permite identificar de manera unica cada elemento en la lista. -->
+
+      <!-- binding class: permite asociar una clase de CSS si una determinada condición se cumple, basada en los datos del modelo -->
+      <article class="media" v-for="submission in sortedSubmissions" :key="submission.id" :class="{'blue-border': submission.votes >= 25}">
+        <!-- Invocar el uso de un sub-componente, previamente registrado por el componente padre para saber de su existencia - A su vez le pasamos algunos datos necesarios para que pueda trabajar -->
+        <submission-component 
+          :submission="submission"
+          :submissions="sortedSubmissions"
+        />
+      </article>
+    </div>
+
+    <footer-component :title="title"/>
+  </div>
+  <!-- Scripts, librerías, Frameworks -->
+  <script src="https://unpkg.com/vue@2.6.10/dist/vue.js"></script>
+  <script src="./seed.js"></script>
+  <script src="./main.js"></script>
+</body>
+</html>
